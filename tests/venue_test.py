@@ -10,5 +10,12 @@ class TestVenue(unittest.TestCase):
     def test_venue_name(self):
         self.assertEqual("Nakatomi Tower", self.venue_1.name)
 
+    def test_venue_entry_fee(self):
+        self.assertEqual(10, self.venue_1.entry_fee)
+
     def test_venue_initial_takings_zero(self):
         self.assertEqual(0, self.venue_1.takings)
+
+    def test_add_to_venue_takings(self):
+        self.venue_1.add_to_takings(100)
+        self.assertEqual(100, self.venue_1.takings)

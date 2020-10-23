@@ -3,6 +3,7 @@ import unittest
 from classes.room import Room
 from classes.song import Song
 from classes.guest import Guest
+from classes.venue import Venue
 
 
 class TestRoom(unittest.TestCase):
@@ -24,7 +25,9 @@ class TestRoom(unittest.TestCase):
         self.guest_5 = Guest("Argyle", 30, self.song_5, 20.00)
         self.guest_6 = Guest("Mr Takagi", 35, self.song_6, 100000.00)
 
-        self.room_1 = Room("The Lobby", 5)
+        self.venue_1 = Venue("Nakatomi Tower")
+
+        self.room_1 = Room("The Lobby", 5, self.venue_1)
 
     def test_room_name(self):
         self.assertEqual("The Lobby", self.room_1.name)
@@ -57,8 +60,6 @@ class TestRoom(unittest.TestCase):
         self.room_1.add_guest_to_room(self.guest_4)
         self.room_1.add_guest_to_room(self.guest_5)
         self.room_1.add_guest_to_room(self.guest_6)
-        self.room_1.add_guest_to_room(self.guest_6)
-        self.room_1.add_guest_to_room(self.guest_6)
         self.assertEqual(5, len(self.room_1.guest_list))
 
     def test_add_song_to_room_playlist(self):
@@ -70,3 +71,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(1, len(self.room_1.playlist))
         self.room_1.remove_song_from_playlist(self.song_7)
         self.assertEqual(0, len(self.room_1.playlist))
+
+    def test_adding_guest_to_room_increases_venue_takings(self):
+        self.room_1.add_guest_to_room(self.guest_1)
+        self.assertEqual(10, self.venue_1.takings)
