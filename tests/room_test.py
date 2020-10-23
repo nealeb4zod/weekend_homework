@@ -15,6 +15,8 @@ class TestRoom(unittest.TestCase):
         self.song_6 = Song(
             "Brandenburg Concerto No. 3 In G Major, (Allegro Moderato)", "Bach"
         )
+        self.song_7 = Song("Winter Wonderland", " Felix Bernard and Richard B. Smith")
+
         self.guest_1 = Guest("John McLean", 39, self.song_1, 100.00)
         self.guest_2 = Guest("Al Powell", 43, self.song_2, 50.00)
         self.guest_3 = Guest("Hans Gruber", 47, self.song_3, 10000.00)
@@ -39,11 +41,6 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(2, len(self.room_1.guest_list))
         self.assertEqual(2, len(self.room_1.playlist))
 
-    def test_room_playlist(self):
-        self.room_1.add_guest_to_room(self.guest_1)
-        self.room_1.add_guest_to_room(self.guest_2)
-        self.assertEqual(2, len(self.room_1.playlist))
-
     def test_room_can_remove_guest(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.room_1.add_guest_to_room(self.guest_2)
@@ -51,4 +48,8 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(2, len(self.room_1.playlist))
         self.room_1.remove_guest_from_room(self.guest_1)
         self.assertEqual(1, len(self.room_1.guest_list))
+        self.assertEqual(1, len(self.room_1.playlist))
+
+    def test_add_song_to_room_playlist(self):
+        self.room_1.add_song_to_room_playlist(self.song_7)
         self.assertEqual(1, len(self.room_1.playlist))
