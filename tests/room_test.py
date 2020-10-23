@@ -53,3 +53,14 @@ class TestRoom(unittest.TestCase):
     def test_add_song_to_room_playlist(self):
         self.room_1.add_song_to_room_playlist(self.song_7)
         self.assertEqual(1, len(self.room_1.playlist))
+
+    def test_room_cannot_add_guest__over_capacity(self):
+        self.room_1.add_guest_to_room(self.guest_1)
+        self.room_1.add_guest_to_room(self.guest_2)
+        self.room_1.add_guest_to_room(self.guest_3)
+        self.room_1.add_guest_to_room(self.guest_4)
+        self.room_1.add_guest_to_room(self.guest_5)
+        self.room_1.add_guest_to_room(self.guest_6)
+        self.room_1.add_guest_to_room(self.guest_6)
+        self.room_1.add_guest_to_room(self.guest_6)
+        self.assertEqual(5, len(self.room_1.guest_list))

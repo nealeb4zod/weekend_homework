@@ -7,8 +7,9 @@ class Room:
         self.bar_tab = 0
 
     def add_guest_to_room(self, guest):
-        self.guest_list.append(guest)
-        self.add_song_to_room_playlist(guest.favourite_song)
+        if len(self.guest_list) < self.capacity:
+            self.guest_list.append(guest)
+            self.add_song_to_room_playlist(guest.favourite_song)
 
     def remove_guest_from_room(self, guest):
         guest_index = self.guest_list.index(guest)
