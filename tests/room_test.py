@@ -93,3 +93,15 @@ class TestRoom(unittest.TestCase):
     def test_adding_guest_to_room_increases_venue_takings(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.assertEqual(10, self.venue_1.takings)
+
+    def test_check_song_on_playlist__true(self):
+        self.room_1.add_song_to_room_playlist(self.song_1)
+        self.assertTrue(self.room_1.check_song(self.song_1))
+
+    def test_check_song_on_playlist__false(self):
+        self.room_1.add_song_to_room_playlist(self.song_1)
+        self.assertFalse(self.room_1.check_song(self.song_2))
+
+    def test_favourite_song_makes_guest_cheer(self):
+        self.room_1.add_guest_to_room(self.guest_3)
+        self.assertEqual("WHERE ARE MY DETONATORS!", self.room_1.play_song(self.song_3))

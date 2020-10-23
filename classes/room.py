@@ -19,8 +19,21 @@ class Room:
         self.remove_song_from_playlist(guest.favourite_song)
 
     def add_song_to_room_playlist(self, song):
-        self.playlist.append(song)
+        if self.check_song(song) == False:
+            self.playlist.append(song)
 
     def remove_song_from_playlist(self, song):
-        song_index = self.playlist.index(song)
-        self.playlist.pop(song_index)
+        if self.check_song(song) == True:
+            song_index = self.playlist.index(song)
+            self.playlist.pop(song_index)
+
+    def check_song(self, song):
+        return song in self.playlist
+
+    def play_song(self, song):
+        if self.check_song(song) == True:
+            for guest in self.guest_list:
+                if song == guest.favourite_song:
+                    self.remove_song_from_playlist(song)
+                    return guest.cheer
+        self.remove_song_from_playlist(song)
