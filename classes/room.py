@@ -14,8 +14,11 @@ class Room:
     def remove_guest_from_room(self, guest):
         guest_index = self.guest_list.index(guest)
         self.guest_list.pop(guest_index)
-        song_index = self.playlist.index(guest.favourite_song)
-        self.playlist.pop(song_index)
+        self.remove_song_from_playlist(guest.favourite_song)
 
     def add_song_to_room_playlist(self, song):
         self.playlist.append(song)
+
+    def remove_song_from_playlist(self, song):
+        song_index = self.playlist.index(song)
+        self.playlist.pop(song_index)

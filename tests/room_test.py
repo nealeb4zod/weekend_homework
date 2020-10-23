@@ -50,10 +50,6 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(1, len(self.room_1.guest_list))
         self.assertEqual(1, len(self.room_1.playlist))
 
-    def test_add_song_to_room_playlist(self):
-        self.room_1.add_song_to_room_playlist(self.song_7)
-        self.assertEqual(1, len(self.room_1.playlist))
-
     def test_room_cannot_add_guest__over_capacity(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.room_1.add_guest_to_room(self.guest_2)
@@ -64,3 +60,13 @@ class TestRoom(unittest.TestCase):
         self.room_1.add_guest_to_room(self.guest_6)
         self.room_1.add_guest_to_room(self.guest_6)
         self.assertEqual(5, len(self.room_1.guest_list))
+
+    def test_add_song_to_room_playlist(self):
+        self.room_1.add_song_to_room_playlist(self.song_7)
+        self.assertEqual(1, len(self.room_1.playlist))
+
+    def test_remove_song_from_room_playlist(self):
+        self.room_1.add_song_to_room_playlist(self.song_7)
+        self.assertEqual(1, len(self.room_1.playlist))
+        self.room_1.remove_song_from_playlist(self.song_7)
+        self.assertEqual(0, len(self.room_1.playlist))
