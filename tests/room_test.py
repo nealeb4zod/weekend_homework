@@ -18,12 +18,30 @@ class TestRoom(unittest.TestCase):
         )
         self.song_7 = Song("Winter Wonderland", " Felix Bernard and Richard B. Smith")
 
-        self.guest_1 = Guest("John McLean", 39, self.song_1, 100.00)
-        self.guest_2 = Guest("Al Powell", 43, self.song_2, 50.00)
-        self.guest_3 = Guest("Hans Gruber", 47, self.song_3, 10000.00)
-        self.guest_4 = Guest("Karl Vreski", 35, self.song_4, 0.00)
-        self.guest_5 = Guest("Argyle", 30, self.song_5, 20.00)
-        self.guest_6 = Guest("Mr Takagi", 35, self.song_6, 100000.00)
+        self.guest_1 = Guest("John McLean", 39, self.song_1, 100.00, "Yippee-ky-ay!!")
+        self.guest_2 = Guest(
+            "Al Powell",
+            43,
+            self.song_2,
+            50.00,
+            "Now means now goddammit!, I'm under automatic rifle fire at Nakatomi, I need backup assistance now! NOW, GODDAMMIT, NOW!",
+        )
+        self.guest_3 = Guest(
+            "Hans Gruber", 47, self.song_3, 10000.00, "WHERE ARE MY DETONATORS!"
+        )
+        self.guest_4 = Guest(
+            "Karl Vreski", 35, self.song_4, 0.00, "No one kills him but me!"
+        )
+        self.guest_5 = Guest(
+            "Argyle", 30, self.song_5, 20.00, "This *is* Christmas music!"
+        )
+        self.guest_6 = Guest(
+            "Mr Takagi",
+            35,
+            self.song_6,
+            100000.00,
+            "I guess you'll just have to kill me then!",
+        )
 
         self.venue_1 = Venue("Nakatomi Tower")
 
