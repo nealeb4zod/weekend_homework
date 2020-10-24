@@ -4,6 +4,9 @@ from classes.room import Room
 from classes.song import Song
 from classes.guest import Guest
 from classes.venue import Venue
+from classes.beer import Beer
+from classes.wine import Wine
+from classes.bar import Bar
 
 
 class TestRoom(unittest.TestCase):
@@ -42,8 +45,14 @@ class TestRoom(unittest.TestCase):
             100000.00,
             "I guess you'll just have to kill me then!",
         )
+        self.tennents = Beer("Tennents", 2.50, 50, 2, "Lager")
+        self.house_red = Wine("House Red", 10.00, 10, 8, "red", "Australia")
+        self.house_white = Wine("House Red", 10.00, 10, 8, "white", "New Zealand")
 
-        self.venue_1 = Venue("Nakatomi Tower")
+        stock = [self.tennents, self.house_red, self.house_white]
+
+        self.main_bar = Bar("Main Bar", 0, stock)
+        self.venue_1 = Venue("Nakatomi Tower", self.main_bar)
 
         self.room_1 = Room("The Lobby", 5, self.venue_1)
 
@@ -56,20 +65,35 @@ class TestRoom(unittest.TestCase):
     def test_room_bar_tab(self):
         self.assertEqual(0, self.room_1.bar_tab)
 
+    def test_check_song_on_playlist__true(self):
+        self.room_1.add_song_to_room_playlist(self.song_1)
+        self.assertTrue(self.room_1.check_song(self.song_1))
+
+    def test_check_song_on_playlist__false(self):
+        self.room_1.add_song_to_room_playlist(self.song_1)
+        self.assertFalse(self.room_1.check_song(self.song_2))
+
+    def test_add_song_to_room_playlist(self):
+        self.room_1.add_song_to_room_playlist(self.song_7)
+        self.assertEqual(1, len(self.room_1.playlist))
+
+    def test_remove_song_from_room_playlist(self):
+        self.room_1.add_song_to_room_playlist(self.song_7)
+        self.room_1.remove_song_from_playlist(self.song_7)
+        self.assertEqual(0, len(self.room_1.playlist))
+
     def test_room_can_add_guest(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.room_1.add_guest_to_room(self.guest_2)
         self.assertEqual(2, len(self.room_1.guest_list))
-        self.assertEqual(2, len(self.room_1.playlist))
+        self.assertEqual(20, self.venue_1.takings)
+        self.assertEqual(90, self.guest_1.wallet)
 
     def test_room_can_remove_guest(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.room_1.add_guest_to_room(self.guest_2)
-        self.assertEqual(2, len(self.room_1.guest_list))
-        self.assertEqual(2, len(self.room_1.playlist))
         self.room_1.remove_guest_from_room(self.guest_1)
         self.assertEqual(1, len(self.room_1.guest_list))
-        self.assertEqual(1, len(self.room_1.playlist))
 
     def test_room_cannot_add_guest__over_capacity(self):
         self.room_1.add_guest_to_room(self.guest_1)
@@ -80,27 +104,9 @@ class TestRoom(unittest.TestCase):
         self.room_1.add_guest_to_room(self.guest_6)
         self.assertEqual(5, len(self.room_1.guest_list))
 
-    def test_add_song_to_room_playlist(self):
-        self.room_1.add_song_to_room_playlist(self.song_7)
-        self.assertEqual(1, len(self.room_1.playlist))
-
-    def test_remove_song_from_room_playlist(self):
-        self.room_1.add_song_to_room_playlist(self.song_7)
-        self.assertEqual(1, len(self.room_1.playlist))
-        self.room_1.remove_song_from_playlist(self.song_7)
-        self.assertEqual(0, len(self.room_1.playlist))
-
     def test_adding_guest_to_room_increases_venue_takings(self):
         self.room_1.add_guest_to_room(self.guest_1)
         self.assertEqual(10, self.venue_1.takings)
-
-    def test_check_song_on_playlist__true(self):
-        self.room_1.add_song_to_room_playlist(self.song_1)
-        self.assertTrue(self.room_1.check_song(self.song_1))
-
-    def test_check_song_on_playlist__false(self):
-        self.room_1.add_song_to_room_playlist(self.song_1)
-        self.assertFalse(self.room_1.check_song(self.song_2))
 
     def test_favourite_song_makes_guest_cheer(self):
         self.room_1.add_guest_to_room(self.guest_3)

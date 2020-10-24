@@ -40,3 +40,19 @@ class TestGuest(unittest.TestCase):
 
     def test_guest_wallet(self):
         self.assertEqual(100, self.guest_1.wallet)
+
+    def test_check_wallet_balance__exact_amount(self):
+        balance_check = self.guest_1.check_wallet_balance(100)
+        self.assertEqual(True, balance_check)
+
+    def test_check_wallet_balance__under_balance(self):
+        balance_check = self.guest_1.check_wallet_balance(99)
+        self.assertEqual(True, balance_check)
+
+    def test_check_wallet_balance__over_balance(self):
+        balance_check = self.guest_1.check_wallet_balance(101)
+        self.assertEqual(False, balance_check)
+
+    def test_remove_from_wallet(self):
+        self.guest_2.remove_from_wallet(30)
+        self.assertEqual(20, self.guest_2.wallet)

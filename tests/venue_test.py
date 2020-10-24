@@ -1,11 +1,21 @@
 import unittest
 
 from classes.venue import Venue
+from classes.beer import Beer
+from classes.wine import Wine
+from classes.bar import Bar
 
 
 class TestVenue(unittest.TestCase):
     def setUp(self):
-        self.venue_1 = Venue("Nakatomi Tower")
+        self.tennents = Beer("Tennents", 2.50, 50, 2, "Lager")
+        self.house_red = Wine("House Red", 10.00, 10, 8, "red", "Australia")
+        self.house_white = Wine("House Red", 10.00, 10, 8, "white", "New Zealand")
+
+        stock = [self.tennents, self.house_red, self.house_white]
+
+        self.main_bar = Bar("Main Bar", 0, stock)
+        self.venue_1 = Venue("Nakatomi Tower", self.main_bar)
 
     def test_venue_name(self):
         self.assertEqual("Nakatomi Tower", self.venue_1.name)

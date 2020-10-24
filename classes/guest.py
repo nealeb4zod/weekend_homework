@@ -5,3 +5,16 @@ class Guest:
         self.favourite_song = favourite_song
         self.wallet = wallet
         self.cheer = cheer
+
+    def check_wallet_balance(self, amount):
+        if amount <= self.wallet:
+            return True
+        else:
+            return False
+
+    def remove_from_wallet(self, amount):
+        if self.check_wallet_balance(amount) == True:
+            self.wallet -= amount
+            return True
+        else:
+            return False

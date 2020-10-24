@@ -9,9 +9,10 @@ class Room:
 
     def add_guest_to_room(self, guest):
         if len(self.guest_list) < self.capacity:
+            guest.remove_from_wallet(self.venue.entry_fee)
+            self.venue.add_to_takings(self.venue.entry_fee)
             self.guest_list.append(guest)
             self.add_song_to_room_playlist(guest.favourite_song)
-            self.venue.add_to_takings(self.venue.entry_fee)
 
     def remove_guest_from_room(self, guest):
         guest_index = self.guest_list.index(guest)
@@ -28,7 +29,10 @@ class Room:
             self.playlist.pop(song_index)
 
     def check_song(self, song):
-        return song in self.playlist
+        if song in self.playlist:
+            return True
+        else:
+            return False
 
     def play_song(self, song):
         if self.check_song(song) == True:
