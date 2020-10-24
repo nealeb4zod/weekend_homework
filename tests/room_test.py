@@ -62,9 +62,6 @@ class TestRoom(unittest.TestCase):
     def test_room_capacity(self):
         self.assertEqual(5, self.room_1.capacity)
 
-    def test_room_bar_tab(self):
-        self.assertEqual(0, self.room_1.bar_tab)
-
     def test_check_song_on_playlist__true(self):
         self.room_1.add_song_to_room_playlist(self.song_1)
         self.assertTrue(self.room_1.check_song(self.song_1))

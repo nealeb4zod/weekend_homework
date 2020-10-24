@@ -4,7 +4,6 @@ class Room:
         self.capacity = capacity
         self.playlist = []
         self.guest_list = []
-        self.bar_tab = 0
         self.venue = venue
 
     def add_guest_to_room(self, guest):
@@ -24,15 +23,12 @@ class Room:
             self.playlist.append(song)
 
     def remove_song_from_playlist(self, song):
-        if self.check_song(song) == True:
+        if self.check_song(song):
             song_index = self.playlist.index(song)
             self.playlist.pop(song_index)
 
     def check_song(self, song):
-        if song in self.playlist:
-            return True
-        else:
-            return False
+        return (False, True)[song in self.playlist]
 
     def play_song(self, song):
         if self.check_song(song) == True:
